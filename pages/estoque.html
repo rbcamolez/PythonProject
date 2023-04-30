@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Estoque</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+
+<body style="margin-bottom:64px; padding-top: 4.5rem;">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="border-bottom: 1px solid gray;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Controle de Vendas</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/cadastro">Cadastro de Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/lista">Lista de Produtos</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search" action="/lista/filtrar" method="get">
+                    <input type="text" class="form-control" name="filtro" placeholder="SKU ou nome do produto">
+                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <h1 class="text-center">Controle de Estoque</h1>
+        <hr>
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <div class="mb-3">
+                    <label for="sku" class="form-label"><strong>SKU:</strong> {{sku}}</label>
+                </div>
+                <div class="mb-3">
+                    <label for="nome" class="form-label"><strong>Nome do Produto:</strong> {{nome}}</label>
+                </div>
+                <div class="mb-3">
+                    <label for="descricao" class="form-label"><strong>Descrição do Produto:</strong>
+                        {{descricao}}</label>
+                </div>
+                <div class="mb-3">
+                    <label for="qtd" class="form-label"><strong>Quantidade do Produto em Estoque:</strong>
+                        {{qtd}}</label>
+                </div>
+                <div class="mb-3">
+                    <label for="lucro" class="form-label"><strong>Lucro com o Produto:</strong>
+                        {{lucro}}</label>
+                </div>
+            </div>
+            <div class="col-md-8 offset-md-2">
+                <form id="estoque-form" method="POST" action="/estoque/adicionar">
+                    <input type="text" class="form-control" id="sku" name="sku" value="{{sku}}" hidden>
+                    <div class="row mb-3">
+                        <div class="col-md-3 text-md-end">
+                            <label for="valor" class="form-label">Valor:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="valor" name="valor" required step="0.01">
+                        </div>
+                        <div class="col-md-3 text-md-end">
+                            <label for="qtd" class="form-label">Quantidade:</label>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="number" class="form-control" id="qtd" name="qtd" required step="1">
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-primary w-100 mb-2 mb-md-0 me-md-2">Compra</button>
+                        </div>
+                        <div class="col-md-6">
+                            <button type="button" id="remover-btn" class="btn btn-danger w-100">Venda</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-8 offset-md-2">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Ação</th>
+                            <th scope="col" class="text-end">Valor</th>
+                            <th scope="col" class="text-end">Quantidade</th>
+                            <th scope="col" class="text-end">Valor unitário</th>
+                            <th scope="col" class="text-center">Data</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{estoque}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+    <footer class="fixed-bottom text-center bg-light" style="border-top: 1px solid gray; padding-top: 0.6rem;">
+        <p>Horário atual: {{hora}}</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+        crossorigin="anonymous"></script>
+    <script>
+        const form = document.getElementById('estoque-form');
+        const removerBtn = document.getElementById('remover-btn');
+
+        removerBtn.addEventListener('click', () => {
+            form.action = '/estoque/remover';
+            form.submit();
+        });
+    </script>
+</body>
+
+</html>
