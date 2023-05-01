@@ -1,9 +1,11 @@
 import cherrypy
 
 from common import *
+from controle import ControleProdutos
 from estoque import Estoque
 from cadastro import Cadastro
 from lista import ListaProdutos
+from relatorio import RelatorioProdutos
 
 
 class Index(object):
@@ -24,5 +26,7 @@ if __name__ == '__main__':
     cherrypy.tree.mount(Cadastro(), "/cadastro")
     cherrypy.tree.mount(ListaProdutos(), "/lista")
     cherrypy.tree.mount(Estoque(), "/estoque")
+    cherrypy.tree.mount(ControleProdutos(), "/controle")
+    cherrypy.tree.mount(RelatorioProdutos(), "/relatorio")
     cherrypy.engine.start()
     cherrypy.engine.block()
