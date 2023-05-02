@@ -22,12 +22,12 @@ class Cadastro(object):
             return html
 
     @cherrypy.expose
-    def cadastrar(self, sku, nome, descricao):
+    def cadastrar(self, sku, nome, descricao, preco_venda):
         conn = get_db_conn()
 
         cursor = conn.cursor()
-        query = "INSERT INTO produtos (sku, nome, descricao) VALUES (%s, %s, %s)"
-        values = (sku, nome, descricao)
+        query = "INSERT INTO produtos (sku, nome, descricao, preco_venda) VALUES (%s, %s, %s, %d)"
+        values = (sku, nome, descricao, preco_venda)
         cursor.execute(query, values)
 
         conn.commit()

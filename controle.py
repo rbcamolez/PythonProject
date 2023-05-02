@@ -18,6 +18,7 @@ class ControleProdutos(object):
         cursor.execute(f"SELECT p.sku, p.nome, p.descricao, COALESCE(SUM(e.qtd), 0) AS total_qtd " +
                        f"FROM produtos p " +
                        f"LEFT JOIN estoque e ON p.id = e.id_produto " +
+                       f"WHERE p.sku LIKE '%{filtro}%' OR p.nome LIKE '%{filtro}%'"
                        f"GROUP BY p.sku, p.nome, p.descricao")
         data = cursor.fetchall()
 

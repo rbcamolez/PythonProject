@@ -1,0 +1,30 @@
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light" style="border-bottom: 1px solid gray;">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Controle de Vendas</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="/cadastro">Cadastro de Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/lista">Lista de Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/controle">Controle de Produtos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/relatorio">Relatório</a>
+                </li>
+            </ul>
+            <form class="d-flex" role="search" action="/lista/filtrar" method="get">
+                <input type="text" class="form-control" name="filtro" placeholder="SKU ou nome do produto">
+                <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+        </div>
+    </div>
+</nav>

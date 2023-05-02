@@ -15,7 +15,10 @@ class ListaProdutos(object):
 
         # extraindo os dados filtrados da tabela
         cursor.execute(
-            "SELECT sku, nome, descricao, preco_venda FROM produtos WHERE sku LIKE '%{0}%' OR nome LIKE '%{0}%'".format(filtro))
+            f"SELECT sku, nome, descricao, preco_venda " +
+            f"FROM produtos " +
+            f"WHERE sku LIKE '%{filtro}%' OR nome LIKE '%{filtro}%' " +
+            f"ORDER BY sku")
         data = cursor.fetchall()
 
         # fechando a conexão
@@ -37,7 +40,7 @@ class ListaProdutos(object):
         cursor = conn.cursor()
 
         # deletando o produto com o SKU especificado
-        cursor.execute("DELETE FROM produtos WHERE sku=?", (sku))
+        cursor.execute("DELETE FROM produtos WHERE sku=?", (sku,))
         conn.commit()
 
         # fechando a conexão
